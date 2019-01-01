@@ -14,7 +14,7 @@ class Pages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new InkWell(
-      onDoubleTap: ()=>Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context)=>new BusRoutePage())),
+      onDoubleTap: ()=>Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context)=>new BusRoutePage(viewModel.color,viewModel.title,viewModel.busRouteUrl))),
       splashColor: Colors.yellowAccent,
       child:new Container(
         constraints: BoxConstraints.expand(),

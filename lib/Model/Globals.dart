@@ -3,3 +3,5 @@ class User{
   static String email;
   static String userId;
 }
+
+final processUrl = "localhost:3000/";

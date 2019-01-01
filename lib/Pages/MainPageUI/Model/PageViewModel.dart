@@ -6,12 +6,14 @@ class PageViewModel{
   final String title;
   final String body;
   final String iconAssetPath;
+  final String busRouteUrl;
 
   PageViewModel(
     this.color,
     this.heroAssetPath,
     this.title,
     this.body,
-    this.iconAssetPath
+    this.iconAssetPath,
+    this.busRouteUrl
   );
 }

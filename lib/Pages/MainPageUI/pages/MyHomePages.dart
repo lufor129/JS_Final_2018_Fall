@@ -6,28 +6,40 @@ import './PagerIndecator.dart';
 import '../Model/PagerIndicatorViewModel.dart';
 import './PageDragger.dart';
 import 'dart:async';
+import '../../../Model/Globals.dart';
 
 final pages = [
+  new PageViewModel(
+    Colors.grey[700],
+    "assets/man.png",
+    "全部",
+    "高雄公車全線",
+    "assets/key.png",
+    "http://192.168.100.28:3000/bus"
+  ),
   new PageViewModel(
       const Color(0xFF678FB4),
       'assets/boy.png',
       '紅',
       '捷運紅線接駁公車',
-      'assets/key.png'
+      'assets/key.png',
+      "123",
   ),
   new PageViewModel(
       const Color(0xFF65B0B4),
       'assets/banks.png',
       '橘',
       '捷運橘線接駁公車',
-      'assets/wallet.png'
+      'assets/key.png',
+      "456"
   ),
   new PageViewModel(
       const Color(0xFF9B90BC),
       'assets/stores.png',
       '黃',
       '捷運黃線體驗路線',
-      'assets/shopping_cart.png',
+      'assets/key.png',
+      "789"
     ),
   ];
 
@@ -120,6 +132,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin{
               slideDirection,
               slidePercent
             ),
+            activeIndex:activeIndex
           ),
           new PageDragger(
             canDragLeftToRight: activeIndex>0,

@@ -5,8 +5,9 @@ import '../Model/PagerBubbleViewModel.dart';
 
 class PagerIndecator extends StatelessWidget {
   final PagerIndicatorViewModel viewModel;
+  int activeIndex;
 
-  PagerIndecator({this.viewModel});
+  PagerIndecator({this.viewModel,this.activeIndex});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +36,8 @@ class PagerIndecator extends StatelessWidget {
             page.iconAssetPath, 
             page.color, 
             isHollow,
-            percentActive
+            percentActive,
+            page.busRouteUrl
           ),
         ),
       );
@@ -55,10 +57,13 @@ class PagerIndecator extends StatelessWidget {
         new Expanded(child: new Container()),
         new Transform(
           transform: new Matrix4.translationValues(translation, 0, 0),
-          child:new Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: bubbles,
-          )
+          child: new InkWell(
+            onTap: ()=>print(bubbles[activeIndex].viewModel.busUrl),
+            child: new Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: bubbles,
+            ),
+          ),
         ),
       ],
     );

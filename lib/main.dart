@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget{
       theme: new ThemeData(
         primaryColor: Colors.blue
       ),
-      home: new BusTimeStep(),
+      home: new MyHomePage(),
       routes: <String,WidgetBuilder>{
         '/home': (BuildContext context)=>new MyHomePage()
       },
