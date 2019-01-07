@@ -3,6 +3,7 @@ import '../Model/BusRouteModel.dart';
 import './BusTimeStep.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import '../Model/Globals.dart';
 
 class BusRoutePage extends StatefulWidget {
 
@@ -25,23 +26,20 @@ class _BusRoutePageState extends State<BusRoutePage> {
     this.getJsonData();
   }
 
-  Future<String> getJsonData() async{
+  void getJsonData() async{
     http.Response response = await http.get(
       Uri.encodeFull(widget.busUrl),
       headers: {"Accept":"application/json"},
     );
 
-    var data = jsonDecode(response.body);
-    List<dynamic> list = data['BusDynInfo']['BusInfo']['Route'];
+    var list = jsonDecode(response.body);
     List<BusRouteModel> newbusRoute = new List();
     for(int i =0;i<list.length;i++){
       newbusRoute.add(new BusRouteModel.formJson(list[i]));
     }
-    print(newbusRoute.length);
     this.setState((){
       this.busRoutes = newbusRoute;
     });
-
   }
 
   bool textInputOpen = false;
@@ -85,13 +83,14 @@ class _BusRoutePageState extends State<BusRoutePage> {
               color: Colors.white70,
               padding: EdgeInsets.only(top: 15,bottom: 15,left: 5,right: 5),
               child: new ListTile(
-                onTap: ()=>Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context)=>new BusTimeStep())),
+                onTap: ()=>Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context)=>new BusTimeStep("http://192.168.100.28:3000/route?id=${busRoutes[index].busId}&isFlutter=true"))),
                 title: new Text(
                   "${busRoutes[index].name}",
                   style: new TextStyle(
                       fontWeight: FontWeight.bold,
                       fontFamily: "SetoFont",
                       fontSize: 32),
+
                 ),
                 subtitle: new Text(
                   "${busRoutes[index].routing}",

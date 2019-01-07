@@ -15,7 +15,7 @@ final pages = [
     "全部",
     "高雄公車全線",
     "assets/key.png",
-    "http://192.168.100.28:3000/bus"
+    "http://192.168.100.28:3000/bus?line=all"
   ),
   new PageViewModel(
       const Color(0xFF678FB4),
@@ -23,7 +23,7 @@ final pages = [
       '紅',
       '捷運紅線接駁公車',
       'assets/key.png',
-      "123",
+      "http://192.168.100.28:3000/bus?line=紅",
   ),
   new PageViewModel(
       const Color(0xFF65B0B4),
@@ -31,7 +31,7 @@ final pages = [
       '橘',
       '捷運橘線接駁公車',
       'assets/key.png',
-      "456"
+      "http://192.168.100.28:3000/bus?line=橘"
   ),
   new PageViewModel(
       const Color(0xFF9B90BC),
@@ -39,7 +39,7 @@ final pages = [
       '黃',
       '捷運黃線體驗路線',
       'assets/key.png',
-      "789"
+      "http://192.168.100.28:3000/bus?line=黃"
     ),
   ];
 

@@ -2,20 +2,19 @@ class BusRouteModel{
   final String name;
   final String routing;
   bool favorite;
-  final int busId;
+  final String busId;
 
   BusRouteModel(this.name,this.routing,this.favorite,this.busId);
 
-  BusRouteModel.formJson(Map<String,dynamic> json)
-    :name = json['nameZh'],
+  BusRouteModel.formJson(Map<String,dynamic> json) :
+    name = json['nameZh'],
     routing=json['ddesc'],
     favorite=false,
-    busId=int.parse(json['ID']);
+    busId=json['ID'];
   
   Map<String,dynamic> toJSON()=>{
     'name':name,
     'routing':routing,
-    'favorite':favorite,
     'busId':busId
   };
 }
