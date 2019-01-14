@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 class BusTimeModel{
   final String stopName;
   final String lastTime;

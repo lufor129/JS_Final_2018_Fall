@@ -3,6 +3,7 @@ import './Pages/LoginPage.dart';
 import './Pages/MainPageUI/pages/MyHomePages.dart';
 import './Pages/BusRoutePage.dart';
 import './Pages/BusTimeStep.dart';
+import './Pages/MyFavorite.dart';
 
 void main() => runApp(MyApp());
 
@@ -15,9 +16,10 @@ class MyApp extends StatelessWidget{
       theme: new ThemeData(
         primaryColor: Colors.blue
       ),
-      home: new MyHomePage(),
+      home: LoginPage(),
       routes: <String,WidgetBuilder>{
-        '/home': (BuildContext context)=>new MyHomePage()
+        '/home': (BuildContext context)=>new MyHomePage(),
+        '/login': (BuildContext context)=>new LoginPage()
       },
     );
   }

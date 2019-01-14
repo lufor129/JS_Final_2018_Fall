@@ -23,6 +23,7 @@ dependencies:
   google_sign_in:
   firebase_auth:
   http:
+  font_awesome_flutter:
 
 dev_dependencies:
   flutter_test:
@@ -48,11 +49,12 @@ flutter:
     - assets/key.png
     - assets/stores.png
     - assets/boy.png
-    - girl.png
-    - girl (1).png
-    - girl (2).png
-    - man.png
-    - mountains.png
+    - assets/girl.png
+    - assets/girl (1).png
+    - assets/girl (2).png
+    - assets/man.png
+    - assets/mountains.png
+    - assets/like.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.

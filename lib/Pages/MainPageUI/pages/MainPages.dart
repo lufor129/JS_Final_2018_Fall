@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../Model/PageViewModel.dart';
 import '../../BusRoutePage.dart';
+import '../../MyFavorite.dart';
 
 class Pages extends StatelessWidget {
   final PageViewModel viewModel;
@@ -11,10 +12,18 @@ class Pages extends StatelessWidget {
     this.percentVisiable = 1.0
   });
 
+  void navigatorPage(BuildContext context){
+    if(viewModel.busRouteUrl=="myFavoritePage"){
+      Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context)=>new MyFavorite()));
+    }else{
+      Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context)=>new BusRoutePage(viewModel.color,viewModel.title,viewModel.busRouteUrl)));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return new InkWell(
-      onDoubleTap: ()=>Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context)=>new BusRoutePage(viewModel.color,viewModel.title,viewModel.busRouteUrl))),
+      onDoubleTap: ()=>navigatorPage(context),
       splashColor: Colors.yellowAccent,
       child:new Container(
         constraints: BoxConstraints.expand(),

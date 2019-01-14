@@ -15,33 +15,49 @@ final pages = [
     "全部",
     "高雄公車全線",
     "assets/key.png",
-    "http://192.168.100.28:3000/bus?line=all"
+    "${processUrl}bus?line=all"
   ),
   new PageViewModel(
-      const Color(0xFF678FB4),
+      Colors.red[600],
       'assets/boy.png',
       '紅',
       '捷運紅線接駁公車',
       'assets/key.png',
-      "http://192.168.100.28:3000/bus?line=紅",
+      "${processUrl}bus?line=紅",
   ),
   new PageViewModel(
-      const Color(0xFF65B0B4),
-      'assets/banks.png',
-      '橘',
-      '捷運橘線接駁公車',
+      const Color(0xFFFF7C35),
+      'assets/girl.png',
+      '橘線 / 黃線',
+      '捷運橘線/黃線接駁公車',
       'assets/key.png',
-      "http://192.168.100.28:3000/bus?line=橘"
+      "${processUrl}bus?line=橘"
   ),
   new PageViewModel(
-      const Color(0xFF9B90BC),
-      'assets/stores.png',
-      '黃',
-      '捷運黃線體驗路線',
+      Color(0xFFFC977D),
+      'assets/girl (2).png',
+      '幹線 / 快線',
+      '幹線/快線路線列車',
       'assets/key.png',
-      "http://192.168.100.28:3000/bus?line=黃"
-    ),
-  ];
+      "${processUrl}bus?line=快線"
+  ),
+  new PageViewModel(
+      Color(0xFF6A7152),
+      'assets/mountains.png',
+      'JOY',
+      '山地快車',
+      'assets/key.png',
+      "${processUrl}bus?line=JOY"
+  ),
+  new PageViewModel(
+      Colors.red[200],
+      'assets/like.png',
+      '我的最愛',
+      '我的最愛頁面',
+      'assets/key.png',
+      "myFavoritePage"
+  ),
+];
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -57,6 +73,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin{
 
   StreamController<SlideUpdate> slideUpdateStream;
   AnimatedPageDragger animationPageDragger;
+
 
   _MyHomePageState(){
     slideUpdateStream = new StreamController<SlideUpdate>();

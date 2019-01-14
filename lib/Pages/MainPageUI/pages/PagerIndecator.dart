@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import '../Model/PagerIndicatorViewModel.dart';
 import './PageBubble.dart';
 import '../Model/PagerBubbleViewModel.dart';
+import '../../BusRoutePage.dart';
+import '../../MyFavorite.dart';
 
 class PagerIndecator extends StatelessWidget {
   final PagerIndicatorViewModel viewModel;
-  int activeIndex;
+  final int activeIndex;
 
   PagerIndecator({this.viewModel,this.activeIndex});
+
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +40,8 @@ class PagerIndecator extends StatelessWidget {
             page.color, 
             isHollow,
             percentActive,
-            page.busRouteUrl
+            page.busRouteUrl,
+            page.title
           ),
         ),
       );
@@ -52,13 +56,21 @@ class PagerIndecator extends StatelessWidget {
       translation -= BUBBLE_WIDTH * viewModel.slidePercent;
     }
 
+    void navigatorPage(BuildContext context){
+      if(bubbles[activeIndex].viewModel.busRouteUrl=="myFavoritePage"){
+        Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context)=>new MyFavorite()));
+      }else{
+        Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context)=>new BusRoutePage(bubbles[activeIndex].viewModel.color,bubbles[activeIndex].viewModel.title,bubbles[activeIndex].viewModel.busRouteUrl)));
+      }
+    }
+
     return new Column(
       children: <Widget>[
         new Expanded(child: new Container()),
         new Transform(
           transform: new Matrix4.translationValues(translation, 0, 0),
           child: new InkWell(
-            onTap: ()=>print(bubbles[activeIndex].viewModel.busUrl),
+            onTap: ()=>navigatorPage(context),     
             child: new Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: bubbles,

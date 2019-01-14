@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import '../Model/BusRouteModel.dart';
-import './BusTimeStep.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import '../Model/Globals.dart';
+import '../UI/BusRouteUI.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class BusRoutePage extends StatefulWidget {
 
@@ -18,20 +19,39 @@ class BusRoutePage extends StatefulWidget {
 }
 
 class _BusRoutePageState extends State<BusRoutePage> {
+
   List<BusRouteModel> busRoutes = [];
+  List<BusRouteModel> favorites = [];
+  bool textInputOpen = false;
+  String titleText = "";
+  FirebaseUser user;
+  final DatabaseReference fireBaseDB = FirebaseDatabase.instance.reference();
 
   @override
   void initState(){
     super.initState();
-    this.getJsonData();
+    getUser().then((user){
+      this.user = user;
+      _getFavorite().then((List<BusRouteModel> myFavorites){
+        this.favorites = myFavorites;
+        this._getJsonData();
+      });
+    });
+  }
+  
+  Future<FirebaseUser> getUser() async{
+    FirebaseUser user = await FirebaseAuth.instance.currentUser();
+    if(user == null){
+      Navigator.of(context).pushNamedAndRemoveUntil("/login", (Route<dynamic> route) => false);
+    }
+    return user;
   }
 
-  void getJsonData() async{
+  void _getJsonData() async{
     http.Response response = await http.get(
       Uri.encodeFull(widget.busUrl),
       headers: {"Accept":"application/json"},
     );
-
     var list = jsonDecode(response.body);
     List<BusRouteModel> newbusRoute = new List();
     for(int i =0;i<list.length;i++){
@@ -42,9 +62,27 @@ class _BusRoutePageState extends State<BusRoutePage> {
     });
   }
 
-  bool textInputOpen = false;
-  String titleText = "";
+  List<BusRouteModel> _computedBusLine(){
+    if(this.titleText == ""){
+      return this.busRoutes;
+    }else{
+      List<BusRouteModel> newbusRoutes = this.busRoutes.where((data)=>data.name.contains(this.titleText)).toList();
+      return newbusRoutes;
+    }
+  }
 
+  Future<List<BusRouteModel>> _getFavorite() async{
+    List<BusRouteModel> myFavorites = new List();
+    await fireBaseDB.child("user/${user.uid}/favorite").once().then((DataSnapshot snapshot){
+      Map data = snapshot.value;
+      data.keys.forEach((key){
+        myFavorites.add(new BusRouteModel.formFireBaseJSON(data[key]));
+      });
+    }).catchError((error){
+      myFavorites = [];
+    });
+    return myFavorites;
+  }
 
   void _toggleTextInput() {
     this.setState(() {
@@ -55,6 +93,12 @@ class _BusRoutePageState extends State<BusRoutePage> {
   void _searchBus(String str) {
     this.setState(() {
       titleText = str;
+    });
+  }
+
+  bool _isFavorite(BusRouteModel busRoute){
+    return this.favorites.any((BusRouteModel favorite){
+      return favorite.busId == busRoute.busId;
     });
   }
 
@@ -77,48 +121,9 @@ class _BusRoutePageState extends State<BusRoutePage> {
           padding: EdgeInsets.all(10.0),
           separatorBuilder: (BuildContext context, int index) =>
               Divider(height: 10),
-          itemCount: busRoutes.length,
+          itemCount: _computedBusLine().length,
           itemBuilder: (BuildContext context, int index) {
-            return new Container(
-              color: Colors.white70,
-              padding: EdgeInsets.only(top: 15,bottom: 15,left: 5,right: 5),
-              child: new ListTile(
-                onTap: ()=>Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context)=>new BusTimeStep("http://192.168.100.28:3000/route?id=${busRoutes[index].busId}&isFlutter=true"))),
-                title: new Text(
-                  "${busRoutes[index].name}",
-                  style: new TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontFamily: "SetoFont",
-                      fontSize: 32),
-
-                ),
-                subtitle: new Text(
-                  "${busRoutes[index].routing}",
-                  style: new TextStyle(
-                    fontSize: 18,
-                    color: Colors.redAccent,
-                  ),
-                ),
-                trailing: new IconButton(
-                  onPressed: () {
-                    this.setState(() {
-                      busRoutes[index].favorite = !busRoutes[index].favorite;
-                    });
-                  },
-                  icon: busRoutes[index].favorite == true
-                      ? Icon(
-                          Icons.favorite,
-                          color: Colors.redAccent,
-                          size: 32,
-                        )
-                      : Icon(
-                          Icons.favorite_border,
-                          color: Colors.redAccent,
-                          size: 32,
-                        ),
-                ),
-              ),
-            );
+            return BusRouteUI(user,_computedBusLine()[index],_isFavorite(_computedBusLine()[index]),widget.color);
           },
         ),
         floatingActionButton: FloatingActionButton(

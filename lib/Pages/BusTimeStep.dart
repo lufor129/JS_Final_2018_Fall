@@ -3,11 +3,14 @@ import '../Model/BusTimeModel.dart';
 import '../UI/BusTimeUI.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class BusTimeStep extends StatefulWidget {
 
+  final String name;
   final String url;
-  BusTimeStep(this.url);
+  final Color color;
+  BusTimeStep(this.name,this.url,this.color);
 
   @override
   _BusTimeStepState createState() => new _BusTimeStepState();
@@ -65,20 +68,21 @@ class _BusTimeStepState extends State<BusTimeStep> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text("時刻表頁"),
-        backgroundColor: Colors.redAccent,
+        title: new Text(widget.name),
+        backgroundColor: widget.color,
       ),
       body: _children[_currentIndex],
       bottomNavigationBar: new BottomNavigationBar(
+        iconSize: 30,
         onTap: _changeRoute,
         currentIndex: _currentIndex,
         items:[
           BottomNavigationBarItem(
-            icon: new Icon(Icons.home),
+            icon: new Icon(FontAwesomeIcons.arrowUp),
             title:new Text("去程")
           ),
           BottomNavigationBarItem(
-            icon:new Icon(Icons.mail),
+            icon:new Icon(FontAwesomeIcons.arrowDown),
             title:new Text("回程")
           )
         ]

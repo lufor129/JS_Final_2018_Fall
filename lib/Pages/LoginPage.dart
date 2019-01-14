@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import '../Model/Globals.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'dart:async';
-import './MainPageUI/pages/MyHomePages.dart';
 
 class LoginPage extends StatelessWidget{
 
   final GoogleSignIn _googleSignIn = new GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final DatabaseReference fireBaseDB = FirebaseDatabase.instance.reference();
 
   Future<FirebaseUser> _signIn(context) async{
     GoogleSignInAccount googleSignInAccount = await _googleSignIn.signIn();
@@ -17,16 +17,14 @@ class LoginPage extends StatelessWidget{
       idToken: googleSignInAuthentication.idToken,
       accessToken: googleSignInAuthentication.accessToken
     ).then((FirebaseUser user){
-      User.username = user.displayName;
-      User.email = user.email;
-      User.userId = user.uid;
-      print("${user.uid} && ${user.email} && ${user.displayName}");
+      print(user);
+      fireBaseDB.child("user/${user.uid}/info").update({"Name":user.displayName,"Email":user.email,"uid":user.uid});
       Navigator.pushNamed(context, "/home");
     }).catchError((e)=>print(e));
 
     return user; 
   }
-  
+
 
   @override
   Widget build(BuildContext context){

@@ -5,8 +5,9 @@ class PagerBubbleViewModel {
   final Color color;
   final bool isHollow;
   final double activePercent;
-  final String busUrl;
+  final String busRouteUrl;
+  final String title;
 
-  PagerBubbleViewModel(this.iconAssetPath,this.color,this.isHollow,this.activePercent,this.busUrl);
+  PagerBubbleViewModel(this.iconAssetPath,this.color,this.isHollow,this.activePercent,this.busRouteUrl,this.title);
   
 }
