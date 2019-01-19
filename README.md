@@ -12,7 +12,6 @@
 * 後端程式 : [https://github.com/lufor129/JS_Final_Express](https://github.com/lufor129/JS_Final_Express)
 * 資料來源 : [高雄市政府開放資料平台](https://data.kcg.gov.tw/dataset?q=%E5%85%AC%E8%BB%8A&sort=score+desc%2C+metadata_modified+desc)
 * xml2json : [xmltojson](https://github.com/buglabs/node-xml2json)
-* 
 
 參考 : 
 * Material Page Reveal : [Material Page Reveal](https://www.youtube.com/watch?v=syd0c9Vi2hg)
