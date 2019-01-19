@@ -1,16 +1,29 @@
-# flutter_final_2018
+# JS期末專題Demo 2019/01/14
 
-A new Flutter project.
+高雄公車APP，包含各路線分類、我的最愛、使用人數分析等功能...
 
-## Getting Started
+ 
+## Flutter+Firebase+Node.js
+前端使用套件 : 
+*  firbase_database : [FlutterFire](https://github.com/flutter/plugins)
+*  font_awesome_flutter : [FontAwsomeFlutter](https://github.com/brianegan/font_awesome_flutter)
 
-This project is a starting point for a Flutter application.
+後端使用套件 : 
+* 後端程式 : [https://github.com/lufor129/JS_Final_Express](https://github.com/lufor129/JS_Final_Express)
+* 資料來源 : [高雄市政府開放資料平台](https://data.kcg.gov.tw/dataset?q=%E5%85%AC%E8%BB%8A&sort=score+desc%2C+metadata_modified+desc)
+* xml2json : [xmltojson](https://github.com/buglabs/node-xml2json)
+* 
 
-A few resources to get you started if this is your first Flutter project:
+參考 : 
+* Material Page Reveal : [Material Page Reveal](https://www.youtube.com/watch?v=syd0c9Vi2hg)
+* Firebase in Flutter : [blog](https://medium.com/@lufor129/flutter-firebase-%E4%B8%80-%E8%A8%AD%E5%AE%9A%E7%AF%87-844372a34a4)
 
-- [Lab: Write your first Flutter app](https://flutter.io/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.io/docs/cookbook)
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.io/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+## 實際操作
+### 1. 路線分類滑動
+![](https://i.imgur.com/W5J7PXU.gif)
+
+
+### 2. 查詢時刻與加入最愛
+![](https://i.imgur.com/s2cjZcw.gif)
+
